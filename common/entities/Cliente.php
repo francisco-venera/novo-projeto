@@ -1,0 +1,176 @@
+<?php
+
+namespace app\common\entities;
+
+use common\components\behaviors\TokenBehavior;
+use common\exceptions\FeedbackException;
+use common\validators\ValidateCnpjCpf;
+use frontend\components\behaviors\AdminBehavior;
+use frontend\components\db\CustomActiveRecordQuery;
+use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\web\UploadedFile;
+
+/**
+ * This is the model class for table "cliente".
+ *
+ * @property int $id
+ * @property string|null $nomeCliente
+ * @property int|null $fone
+ * @property int|null $celular
+ * @property string|null $email
+ * @property string|null $documento
+ * @property string|null $cep
+ * @property string|null $estado
+ * @property string|null $cidade
+ * @property string|null $bairro
+ * @property string|null $rua
+ * @property string|null $numero
+ * @property string|null $pais
+ *
+ * @property Expense[] $expenses
+ */
+class Cliente extends ActiveRecord
+{
+
+    const ARRAY_STATES = [
+        'AC'=>'Acre',
+        'AL'=>'Alagoas',
+        'AP'=>'Amapá',
+        'AM'=>'Amazonas',
+        'BA'=>'Bahia',
+        'CE'=>'Ceará',
+        'DF'=>'Distrito Federal',
+        'ES'=>'Espírito Santo',
+        'GO'=>'Goiás',
+        'MA'=>'Maranhão',
+        'MT'=>'Mato Grosso',
+        'MS'=>'Mato Grosso do Sul',
+        'MG'=>'Minas Gerais',
+        'PA'=>'Pará',
+        'PB'=>'Paraíba',
+        'PR'=>'Paraná',
+        'PE'=>'Pernambuco',
+        'PI'=>'Piauí',
+        'RJ'=>'Rio de Janeiro',
+        'RN'=>'Rio Grande do Norte',
+        'RS'=>'Rio Grande do Sul',
+        'RO'=>'Rondônia',
+        'RR'=>'Roraima',
+        'SC'=>'Santa Catarina',
+        'SP'=>'São Paulo',
+        'SE'=>'Sergipe',
+        'TO'=>'Tocantins'
+    ];
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['nomeCliente'], 'required'],
+            [['fone', 'celular'], 'default', 'value' => null],
+            //Sanitize phone document and zipcode
+            [['fone', 'documento', 'cep'], 'filter', 'filter' => function ($value) {
+                return preg_replace( '/[^0-9]/', '', $value);
+            }],
+            [['fone'], 'string', 'min' => 10, 'max' => 11, 'skipOnEmpty' => true, 'tooShort' => 'Por favor inserir um número válido.', 'tooLong' => 'Por favor inserir um número válido.'],
+            [['celular', 'fone'], 'integer'],
+            [['documento'], 'string', 'max' => 14, 'enableClientValidation' => false],
+            [['documento'], 'validateCnpjCpf'],
+            [['documento'], 'unique'],
+            [['nome', 'email'], 'string', 'max' => 255],
+            [['cep'], 'string', 'skipOnEmpty' => true, 'min' => 8, 'max' => 8],
+            [['estado'], 'string', 'max' => 2],
+            [['cidade', 'bairro', 'rua', 'pais'], 'string', 'max' => 100],
+            [['numero'], 'string', 'max' => 10],
+
+        ];
+    }
+
+
+    /**
+     * @return CustomActiveRecordQuery|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new CustomActiveRecordQuery(get_called_class());
+    }
+
+    /**
+     * Validar CPF/CNPJ
+     *
+     * @param $attribute
+     * @param $params
+     */
+    public function validateCnpjCpf($attribute, $params)
+    {
+        //nao pode salvar com tudo zero
+        $intValue = (int) $this->$attribute;
+        if ($intValue == 0) {
+            $this->addError($attribute, 'Documento inválido');
+        } else {
+            $documento = new ValidateCnpjCpf($this->$attribute);
+            if (!$documento->validate()) {
+                $this->addError($attribute, 'Informe um documento válido');
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'Código',
+            'nomeCliente' => 'Nome',
+            'fone' => 'Telefone',
+            'email' => 'E-mail',
+            'documento' => 'CPF/CNPJ',
+            'cep' => 'CEP',
+            'estado' => 'Estado',
+            'cidade' => 'Cidade',
+            'bairro' => 'Bairro',
+            'rua' => 'Logradouro',
+            'pais' => 'Complemento',
+            'numero' => 'Número',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function selectData()
+    {
+        $clientes = Cliente::find()
+            ->select(['id', 'nomeCliente'])
+            ->orderBy('nomeCliente asc')
+            ->all();
+
+        if(!$suppliers) return ['' => 'Nenhum cliente cadastrado'];
+
+        $return = ['' => 'Selecione'];
+        foreach($clientes as $cliente) {
+            $return[$cliente->id] = $cliente->name;
+        }
+
+        return $return;
+    }
+
+    /**
+     * @throws FeedbackException
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function afterDelete()
+    {
+        (new Log())->saveLog(Log::TYPE_REQUEST_DELETE,'cliente');
+
+        parent::afterDelete(); // TODO: Change the autogenerated stub
+    }
+}
