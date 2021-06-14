@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datecontrol\DateControl;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Doacao */
@@ -14,7 +15,12 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-xs-12 col-md-2">
-            <?= $form->field($model, 'data')->textInput(['maxlength' => true]); ?>
+        <?= $form->field($model, 'data')->widget(DateControl::class, [
+            'type' => DateControl::FORMAT_DATE,
+            'widgetOptions' => [
+                'removeButton' => false,
+            ]
+        ]) ?>
         </div>
         <div class="col-xs-12 col-md-5">
             <?= $form->field($model, 'idAnimal')->textInput(); ?>

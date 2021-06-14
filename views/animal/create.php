@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Animal */
 
 $this->title = 'Cadastrar Animal';
-$this->params['breadcrumbs'][] = ['label' => 'Animals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Animais', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="animal-create">

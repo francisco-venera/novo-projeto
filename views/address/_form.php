@@ -3,7 +3,7 @@
 /* @var $form yii\widgets\ActiveForm */
 
 use yii\widgets\MaskedInput;
-use app\common\entities\Cliente;
+use app\models\Cliente;
 
 /* @var $this \yii\web\View */
 /* @var $model \yii\db\ActiveRecord */
@@ -26,6 +26,7 @@ use app\common\entities\Cliente;
     <div class="col-xs-12 col-sm-6 col-md-3">
         <?= $form->field($model, 'bairro')->textInput(['maxlength' => true]); ?>
     </div>
+
     <div class="col-xs-12 col-sm-6 col-md-6">
         <?= $form->field($model, 'rua')->textInput(['maxlength' => true]); ?>
     </div>

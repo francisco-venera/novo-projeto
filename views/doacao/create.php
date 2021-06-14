@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Doacao */
 
 $this->title = 'Cadastrar Doação';
-$this->params['breadcrumbs'][] = ['label' => 'Doacaos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Doação', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="doacao-create">
