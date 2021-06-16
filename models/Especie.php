@@ -15,6 +15,24 @@ use Yii;
  */
 class Especie extends \yii\db\ActiveRecord
 {
+
+    public static function selectData()
+    {
+        $especies = Especie::find()
+            ->select(['id', 'tipoEspecie'])
+            ->orderBy('tipoEspecie asc')
+            ->all();
+
+        if(!$especies) return ['' => 'Nenhuma espécie cadastrada'];
+
+        $return = ['' => 'Selecione'];
+        foreach($especies as $especie) {
+            $return[$especie->id] = $especie->tipoEspecie;
+        }
+
+        return $return;
+    }
+    
     /**
      * {@inheritdoc}
      */

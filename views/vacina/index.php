@@ -27,8 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'nome',
-            'idEspecie',
-
+            [
+                'attribute' => 'tipoEspecie', 
+                'value' => function($model) {
+                    return $model->idEspecie ? $model->especie->tipoEspecie : null;
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

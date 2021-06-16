@@ -11,11 +11,31 @@ use Yii;
  * @property string $nome
  * @property int $idEspecie
  *
- * @property Especie $idEspecie0
+ * @property Especie $especie
+ *  @property tipoEspecie $tipoEspecie0
  * @property Vacinacao[] $vacinacaos
  */
 class Vacina extends \yii\db\ActiveRecord
 {
+
+    
+    public static function selectData()
+    {
+        $vacinas = Vacina::find()
+            ->select(['id', 'nome'])
+            ->orderBy('nome asc')
+            ->all();
+
+        if(!$vacinas) return ['' => 'Nenhuma vacina cadastrada'];
+
+        $return = ['' => 'Selecione'];
+        foreach($vacinas as $vacina) {
+            $return[$vacina->id] = $vacina->nome;
+        }
+
+        return $return;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -55,7 +75,7 @@ class Vacina extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdEspecie0()
+    public function getEspecie()
     {
         return $this->hasOne(Especie::className(), ['id' => 'idEspecie']);
     }

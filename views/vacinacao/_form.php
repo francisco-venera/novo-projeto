@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datecontrol\DateControl;
+use app\models\Vacina;
+use app\models\Animal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Vacinacao */
@@ -23,10 +25,10 @@ use kartik\datecontrol\DateControl;
         ]) ?>
         </div>
         <div class="col-xs-12 col-md-5">
-            <?= $form->field($model, 'idVacina')->textInput(); ?>
+            <?= $form->field($model, 'idVacina')->dropDownList(Vacina::selectData()); ?>
         </div>
         <div class="col-xs-12 col-md-5">
-            <?= $form->field($model, 'idAnimal')->textInput(); ?>
+            <?= $form->field($model, 'idAnimal')->dropDownList(Animal::selectData()); ?>
         </div>
     </div>
 

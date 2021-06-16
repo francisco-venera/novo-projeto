@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nome',
             'idEspecie',
+            [
+                'attribute' => 'tipoEspecie', 
+                'value' => function($model) {
+                    return $model->idEspecie ? $model->especie->tipoEspecie : null;
+                }
+            ],
         ],
     ]) ?>
 

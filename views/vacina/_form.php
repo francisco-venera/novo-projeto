@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Especie;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Vacina */
@@ -17,7 +18,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'nome')->textInput(['maxlength' => true]); ?>
         </div>
         <div class="col-xs-12 col-md-6">
-            <?= $form->field($model, 'idEspecie')->textInput(); ?>
+        <?= $form->field($model, 'idEspecie')->dropDownList(Especie::selectData()); ?>
         </div>
     </div>
 

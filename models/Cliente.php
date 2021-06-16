@@ -57,6 +57,25 @@ class Cliente extends \yii\db\ActiveRecord
         'TO'=>'Tocantins'
     ];
 
+
+    public static function selectData()
+    {
+        $clientes = Cliente::find()
+            ->select(['id', 'nomeCliente'])
+            ->orderBy('nomeCliente asc')
+            ->all();
+
+        if(!$clientes) return ['' => 'Nenhum cliente cadastrado'];
+
+        $return = ['' => 'Selecione'];
+        foreach($clientes as $cliente) {
+            $return[$cliente->id] = $cliente->nomeCliente;
+        }
+
+        return $return;
+    }
+
+
     /**
      * {@inheritdoc}
      */

@@ -21,6 +21,24 @@ use Yii;
  */
 class Animal extends \yii\db\ActiveRecord
 {
+
+    public static function selectData()
+    {
+        $animais = Animal::find()
+            ->select(['id', 'nome'])
+            ->orderBy('nome asc')
+            ->all();
+
+        if(!$animais) return ['' => 'Nenhuma animal cadastrado'];
+
+        $return = ['' => 'Selecione'];
+        foreach($animais as $animal) {
+            $return[$animal->id] = $animal->nome;
+        }
+
+        return $return;
+    }
+
     /**
      * {@inheritdoc}
      */
