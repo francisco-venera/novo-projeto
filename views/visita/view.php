@@ -30,9 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'data',
-            'idCliente',
-            'idAnimal',
+            [
+                'attribute' => 'data',
+                'format' => 'date',
+            ],
+            [
+                'attribute' => 'cliente', 
+                'value' => function($model) {
+                    return $model->idCliente ? $model->cliente->nomeCliente : null;
+                }
+            ],
+            [
+                'attribute' => 'animal', 
+                'value' => function($model) {
+                    return $model->idAnimal ? $model->animal->nome : null;
+                }
+            ],
         ],
     ]) ?>
 

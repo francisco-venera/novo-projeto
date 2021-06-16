@@ -15,6 +15,8 @@ use Yii;
  *
  * @property Animal $idAnimal0
  * @property Cliente $idCliente0
+ * @property Animal $animal
+ * @property Cliente $cliente
  */
 class Doacao extends \yii\db\ActiveRecord
 {
@@ -55,6 +57,27 @@ class Doacao extends \yii\db\ActiveRecord
             'obs' => 'Observações',
         ];
     }
+
+       /**
+     * Gets query for [[Animal]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnimal()
+    {
+        return $this->hasOne(Animal::className(), ['id' => 'idAnimal']);
+    }
+
+    /**
+     * Gets query for [[IdCliente0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCliente()
+    {
+        return $this->hasOne(Cliente::className(), ['id' => 'idCliente']);
+    }
+
 
     /**
      * Gets query for [[IdAnimal0]].

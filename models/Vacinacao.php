@@ -12,8 +12,10 @@ use Yii;
  * @property int $idVacina
  * @property int $idAnimal
  *
- * @property Animal $idAnimal0
- * @property Vacina $idVacina0
+ * @property idAnimal $idAnimal0
+ * @property idVacina $idVacina0
+ * @property Vacina $vacina
+ * @property Animal $animal
  */
 class Vacinacao extends \yii\db\ActiveRecord
 {
@@ -54,13 +56,33 @@ class Vacinacao extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[IdAnimal0]].
+     * Gets query for [[Vacina]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdAnimal0()
+    public function getVacina()
+    {
+        return $this->hasOne(Vacina::className(), ['id' => 'idVacina']);
+    }
+
+    /**
+     * Gets query for [[Animal]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnimal()
     {
         return $this->hasOne(Animal::className(), ['id' => 'idAnimal']);
+    }
+
+    /**
+     * Gets query for [[IdEspecie0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEspecie()
+    {
+        return $this->hasOne(Especie::className(), ['id' => 'idEspecie']);
     }
 
     /**

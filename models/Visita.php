@@ -12,8 +12,10 @@ use Yii;
  * @property int $idCliente
  * @property int $idAnimal
  *
- * @property Animal $idAnimal0
- * @property Cliente $idCliente0
+ * @property idAnimal $idAnimal0
+ * @property idCliente $idCliente0
+ * @property Animal $animal
+ * @property Cliente $cliente
  */
 class Visita extends \yii\db\ActiveRecord
 {
@@ -51,6 +53,26 @@ class Visita extends \yii\db\ActiveRecord
             'idCliente' => 'Cliente',
             'idAnimal' => 'Animal',
         ];
+    }
+
+    /**
+     * Gets query for [[Animal]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnimal()
+    {
+        return $this->hasOne(Animal::className(), ['id' => 'idAnimal']);
+    }
+
+    /**
+     * Gets query for [[IdCliente0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCliente()
+    {
+        return $this->hasOne(Cliente::className(), ['id' => 'idCliente']);
     }
 
     /**

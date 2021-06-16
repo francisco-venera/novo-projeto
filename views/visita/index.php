@@ -26,9 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'data',
-            'idCliente',
-            'idAnimal',
+            [
+                'attribute' => 'data',
+                'format' => 'date',
+            ],
+            [
+                'attribute' => 'cliente', 
+                'value' => function($model) {
+                    return $model->idCliente ? $model->cliente->nomeCliente : null;
+                }
+            ],
+            [
+                'attribute' => 'animal', 
+                'value' => function($model) {
+                    return $model->idAnimal ? $model->animal->nome : null;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
