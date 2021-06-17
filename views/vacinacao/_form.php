@@ -25,10 +25,10 @@ use app\models\Animal;
         ]) ?>
         </div>
         <div class="col-xs-12 col-md-5">
-            <?= $form->field($model, 'idVacina')->dropDownList(Vacina::selectData()); ?>
+            <?= $form->field($model, 'idAnimal')->dropDownList(Animal::selectData()); ?>
         </div>
         <div class="col-xs-12 col-md-5">
-            <?= $form->field($model, 'idAnimal')->dropDownList(Animal::selectData()); ?>
+            <?= $form->field($model, 'idVacina')->dropDownList(Vacina::selectData()); ?>
         </div>
     </div>
 
