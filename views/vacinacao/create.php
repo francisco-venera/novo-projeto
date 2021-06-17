@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Vacinacao */
 
 $this->title = 'Cadastrar Vacinação';
-$this->params['breadcrumbs'][] = ['label' => 'Vacinacaos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Vacinação', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vacinacao-create">

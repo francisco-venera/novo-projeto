@@ -92,8 +92,8 @@ class Cliente extends \yii\db\ActiveRecord
         return [
             [['nomeCliente', 'documento'], 'required'],
             [['fone', 'celular', 'numero'], 'default', 'value' => null],
-            [['fone', 'celular', 'numero'], 'integer'],
-            [['nomeCliente', 'documento', 'email', 'cep', 'rua', 'bairro', 'cidade', 'estado', 'pais'], 'string', 'max' => 60],
+            [['numero'], 'integer'],
+            [['nomeCliente', 'documento', 'email', 'cep', 'rua', 'bairro', 'cidade', 'estado', 'pais', 'fone', 'celular'], 'string', 'max' => 60],
         ];
     }
 
