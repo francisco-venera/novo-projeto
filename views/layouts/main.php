@@ -39,14 +39,60 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Clientes', 'url' => ['/cliente/index']],
-            ['label' => 'Animais', 'url' => ['/animal/index']],
-            ['label' => 'Espécies', 'url' => ['/especie/index']],
-            ['label' => 'Vacinas', 'url' => ['/vacina/index']],
-            ['label' => 'Vacinação', 'url' => ['/vacinacao/index']],
-            ['label' => 'Visitas', 'url' => ['/visita/index']],
-            ['label' => 'Doação', 'url' => ['/doacao/index']],
+
+            [
+                'label' => 'Cadastros',
+                'firstLevel' => true,
+                'items' => [
+                    [
+                        'label' => 'Clientes',
+                        'url' => ['/cliente/index'],
+                    ],
+                    [
+                        'label' => 'Animais',
+                        'url' => ['/animal/index'],
+                    ],
+                    [
+                        'label' => 'Espécies',
+                        'url' => ['/especie/index'],
+                    ],
+                    [
+                        'label' => 'Vacinas',
+                        'url' => ['/vacina/index'],
+                    ],
+                ],
+            ],
+
+            [
+                'label' => 'Controle',
+                'firstLevel' => true,
+                'items' => [
+                    [
+                        'label' => 'Vacinação',
+                        'url' => ['/vacinacao/index'],
+                    ],
+                    [
+                        'label' => 'Visitas',
+                        'url' => ['/visita/index'],
+                    ],
+                    [
+                        'label' => 'Doação',
+                        'url' => ['/doacao/index'],
+                    ],
+                ],
+            ],
             
+            [
+                'label' => 'Relatórios',
+                'firstLevel' => true,
+                'items' => [
+                    [
+                        'label' => 'Relatório de clientes',
+                        'url' => ['/cliente/index'],
+                    ],
+                ],
+            ],
+
         ],
     ]);
     NavBar::end();
