@@ -88,7 +88,7 @@ AppAsset::register($this);
                 'items' => [
                     [
                         'label' => 'Relatório de clientes',
-                        'url' => ['/cliente/index'],
+                        'url' => ['/reports/report-client'],
                     ],
                 ],
             ],
